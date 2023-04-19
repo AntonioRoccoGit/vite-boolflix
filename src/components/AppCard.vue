@@ -1,13 +1,19 @@
 <script>
+import { store } from '../store';
 export default {
     name: "AppCard",
+    data() {
+        return {
+            store
+        }
+    },
     props: ["item"]
 }
 </script>
 
 <template>
     <div class="ms_card">
-        <img src="https://image.tmdb.org/t/p/w342/qXctHIfK4LAgHH7qZiJJVCPclaY.jpg" alt="">
+        <img :src="`${store.imgPath}${item.backdrop_path}`" alt="">
         <ul class="overlay">
             <li>{{ item.title }}</li>
             <li>{{ item.original_title }}</li>
@@ -24,6 +30,7 @@ export default {
 .ms_card {
     border: 1px solid white;
     position: relative;
+    min-height: 100%;
 
     .overlay {
         padding: 0 !important;
