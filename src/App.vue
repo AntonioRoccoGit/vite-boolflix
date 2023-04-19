@@ -57,11 +57,18 @@ export default {
 <template>
   <AppHeader @search="handleSearch" />
   <div class="container">
-    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6">
+    <h2 class="row-title" v-if="store.myFilmsArray.length"> FILMS </h2>
+    <h2 v-else>Inizia la tua ricerca...</h2>
+    <div div class=" row row-cols-2 row-cols-md-4 row-cols-lg-6">
       <div v-for="item in store.myFilmsArray" class="col mt-2">
         <AppCard :item="item" />
       </div>
-
+    </div>
+    <h2 class="row-title" v-if="store.mySeriesArray.length">Serie TV</h2>
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6">
+      <div v-for="item in store.mySeriesArray" class="col mt-2">
+        <AppCard :item="item" />
+      </div>
     </div>
   </div>
 </template>

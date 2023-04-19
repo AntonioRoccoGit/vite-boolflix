@@ -20,7 +20,6 @@ export default {
                 BOOL<span>FLIX</span>
             </section>
             <section class="ms_search-bar">
-                premi invio per cercare
                 <input @keyup.enter="$emit('search')" v-model.trim="store.currentSearch" type="text"
                     placeholder="Ricerca per nome...">
             </section>

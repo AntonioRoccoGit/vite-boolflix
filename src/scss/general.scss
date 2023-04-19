@@ -15,3 +15,11 @@ body {
 img {
     max-width: 100%;
 }
+
+.container {
+    max-width: 1000px;
+
+    .row-title {
+        margin-top: 2rem;
+    }
+}
