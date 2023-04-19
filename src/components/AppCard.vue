@@ -8,21 +8,27 @@ export default {
         }
     },
     props: ["item"],
-    mounted() {
-        this.setTitle();
-        this.setRaiting();
-    },
-    methods: {
-        setTitle() {
-            if (!this.item.original_title) {
-                this.item.original_title = this.item.original_name
-                this.item.title = this.item.name
+
+    computed: {
+        getOriginalTitle() {
+            if (this.item.original_title) {
+                return this.item.original_title;
+            } else {
+                return this.item.original_name;
+            }
+        },
+        getTitle() {
+            if (this.item.title) {
+                return this.item.title;
+            } else {
+                return this.item.name;
             }
         },
         setRaiting() {
-            this.item.vote_average = parseInt(this.item.vote_average / 2)
+            return parseInt(this.item.vote_average / 2)
         }
     }
+
 }
 </script>
 
@@ -31,10 +37,11 @@ export default {
         <img :src="`${store.imgPath}${item.poster_path}`" alt="">
         <h3 v-if="!item.poster_path">Siamo spiacenti, l'immagine non è disponibile</h3>
         <ul class="overlay">
-            <li><span>Titolo:</span> {{ item.title }}</li>
-            <li v-if="item.title !== item.original_title"><span>Titolo originale: </span>{{ item.original_title }}</li>
+            <li><span>Titolo:</span> {{ getTitle }}</li>
+            <li v-if="getTitle !== getOriginalTitle"><span>Titolo originale: </span>{{ getOriginalTitle }}</li>
             <li><span>Lingua:</span> {{ item.original_language }}</li>
-            <li><span>Voto:</span> {{ item.vote_average }}</li>
+            <li><span>Voto:</span> {{ setRaiting }}</li>
+            <li v-if="item.overview"><span>Descrizione:</span> {{ item.overview }}</li>
         </ul>
     </div>
 </template>
