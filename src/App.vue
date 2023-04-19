@@ -2,6 +2,7 @@
 import axios from "axios";
 import { store } from "./store";
 import AppHeader from "./components/AppHeader.vue";
+import AppCard from "./components/AppCard.vue";
 export default {
   data() {
     return {
@@ -9,7 +10,8 @@ export default {
     }
   },
   components: {
-    AppHeader
+    AppHeader,
+    AppCard
 
   },
   methods: {
@@ -34,7 +36,7 @@ export default {
           params
         })
         .then((resp) => {
-          console.log(resp, "FIlm");
+          this.store.myFilmsArray = resp.data.results;
         })
     },
     getSeriesFromApi(params) {
@@ -43,7 +45,8 @@ export default {
           params
         })
         .then((resp) => {
-          console.log(resp, "serie");
+          this.store.mySeriesArray = resp.data.results;
+
         })
     }
   },
@@ -54,8 +57,11 @@ export default {
 <template>
   <AppHeader @search="handleSearch" />
   <div class="container">
-    <div class="row">
-      <div class="col"></div>
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6">
+      <div v-for="item in store.myFilmsArray" class="col mt-2">
+        <AppCard :item="item" />
+      </div>
+
     </div>
   </div>
 </template>
