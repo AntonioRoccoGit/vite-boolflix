@@ -5,7 +5,8 @@ export default {
     name: "AppCard",
     data() {
         return {
-            store
+            store,
+            flag: ""
         }
     },
     components: {
@@ -15,7 +16,10 @@ export default {
 
     computed: {
         getFleg() {
-            const flag = this.item.original_language;
+            this.flag = this.item.original_language;
+            if (this.flag === "kn") {
+                return false
+            }
             return flag;
         },
         getOriginalTitle() {
@@ -47,9 +51,10 @@ export default {
         <ul class="overlay">
             <li><span>Titolo:</span> {{ getTitle }}</li>
             <li v-if="getTitle !== getOriginalTitle"><span>Titolo originale: </span>{{ getOriginalTitle }}</li>
-            <li><span>Lingua:</span>
-                <LangFlag :iso="getFleg" />
+            <li v-if="getFleg"><span>Lingua:</span>
+                <LangFlag :iso="getFleg" :squared="false" />
             </li>
+            <li v-else><span>Lingua:</span> Kannada</li>
             <li><span>Voto:</span> {{ setRaiting }}</li>
             <li v-if="item.overview"><span>Descrizione:</span> {{ item.overview }}</li>
         </ul>
