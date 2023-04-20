@@ -69,6 +69,20 @@ export default {
           this.store.seriesGenersArray = resp.data.genres;
         })
     },
+    handleSelect(e) {
+      if (e.genre_ids.length > 0 && this.store.flagGeneres) {
+        return e.genre_ids.includes(this.store.filmsGeneres);
+      } else {
+        return true;
+      }
+    },
+    handleSelectChange() {
+      this.store.flagGeneres = true;
+      this.handleSelect;
+      if (this.store.filmsGeneres === "") {
+        this.store.flagGeneres = false;
+      }
+    }
   },
 
 }
@@ -77,10 +91,18 @@ export default {
 <template>
   <AppHeader @search="handleSearch" />
   <div class="container ms_container mt-4 px-5">
-    <h2 class="row-title" v-if="this.store.myFilmsArray.length"> FILMS </h2>
+    <h2 v-if="this.store.myFilmsArray.length" class="row-title"> FILMS </h2>
     <h2 v-else class="mt-4 text-center">Inizia la tua ricerca...</h2>
+    <select @change="handleSelectChange" v-model="store.filmsGeneres" v-show="store.filmGenersArray.length"
+      name="film-select" id="film-select">
+      <option value="">Seleziona il genere</option>
+      <option v-for="generes in this.store.filmGenersArray" :key="generes.id" :value="generes.id">
+        {{ generes.name }}
+      </option>
+
+    </select>
     <div div class=" row row-cols-2 row-cols-md-4 row-cols-lg-6">
-      <div v-for="item in this.store.myFilmsArray" :key="item.id" class="col mt-2">
+      <div v-show="handleSelect(item)" v-for="item in this.store.myFilmsArray" :key="item.id" class="col mt-2">
         <AppCard :item="item" />
       </div>
     </div>

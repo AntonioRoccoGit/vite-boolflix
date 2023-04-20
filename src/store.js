@@ -9,8 +9,10 @@ export const store = reactive({
     apiUrlSeriesGeners: "/genre/tv/list",
     imgPath: "https://image.tmdb.org/t/p/w342",
     currentSearch: "",
+    filmsGeneres: "",
     myFilmsArray: [],
     mySeriesArray: [],
     filmGenersArray: [],
-    seriesGenersArray: []
+    seriesGenersArray: [],
+    flagGeneres: false
 });
