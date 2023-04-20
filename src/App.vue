@@ -56,9 +56,9 @@ export default {
 
 <template>
   <AppHeader @search="handleSearch" />
-  <div class="container ms_container mt-2">
+  <div class="container ms_container mt-4 px-5">
     <h2 class="row-title" v-if="store.myFilmsArray.length"> FILMS </h2>
-    <h2 v-else>Inizia la tua ricerca...</h2>
+    <h2 v-else class="mt-4 text-center">Inizia la tua ricerca...</h2>
     <div div class=" row row-cols-2 row-cols-md-4 row-cols-lg-6">
       <div v-for="item in store.myFilmsArray" class="col mt-2">
         <AppCard :item="item" />
