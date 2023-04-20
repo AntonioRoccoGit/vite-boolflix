@@ -1,5 +1,6 @@
 <script>
 import { store } from '../store';
+import LangFlag from "vue-lang-code-flags"
 export default {
     name: "AppCard",
     data() {
@@ -7,9 +8,16 @@ export default {
             store
         }
     },
+    components: {
+        LangFlag
+    },
     props: ["item"],
 
     computed: {
+        getFleg() {
+            const flag = this.item.original_language;
+            return flag;
+        },
         getOriginalTitle() {
             if (this.item.original_title) {
                 return this.item.original_title;
@@ -39,7 +47,9 @@ export default {
         <ul class="overlay">
             <li><span>Titolo:</span> {{ getTitle }}</li>
             <li v-if="getTitle !== getOriginalTitle"><span>Titolo originale: </span>{{ getOriginalTitle }}</li>
-            <li><span>Lingua:</span> {{ item.original_language }}</li>
+            <li><span>Lingua:</span>
+                <LangFlag :iso="getFleg" />
+            </li>
             <li><span>Voto:</span> {{ setRaiting }}</li>
             <li v-if="item.overview"><span>Descrizione:</span> {{ item.overview }}</li>
         </ul>
@@ -77,6 +87,10 @@ export default {
 
             span {
                 font-weight: 800;
+            }
+
+            .flag-icon {
+                margin-left: .4rem;
             }
         }
 
