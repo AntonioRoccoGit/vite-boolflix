@@ -19,7 +19,7 @@ export default {
         getFleg() {
             const flag = this.item.original_language;
             if (flag === "kn") {
-                return false
+                return false;
             }
             return flag;
         },
@@ -38,7 +38,7 @@ export default {
             }
         },
         setRaiting() {
-            return parseInt(this.item.vote_average / 2)
+            return parseInt(this.item.vote_average / 2);
         }
     }
 
@@ -52,7 +52,8 @@ export default {
         <ul class="overlay">
             <li><span>Titolo:</span> {{ getTitle }}</li>
             <li v-if="getTitle !== getOriginalTitle"><span>Titolo originale: </span>{{ getOriginalTitle }}</li>
-            <li v-if="getFleg"><span>Lingua:</span>
+            <li v-if="getFleg">
+                <span>Lingua:</span>
                 <LangFlag :iso="getFleg" :squared="false" />
             </li>
             <li v-else><span>Lingua:</span> Kannada</li>
