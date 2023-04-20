@@ -9,7 +9,12 @@ export default {
     },
     emits: [
         "search"
-    ]
+    ],
+    methods: {
+        reloadPage() {
+            location.reload();
+        }
+    }
 }
 </script>
 
@@ -17,7 +22,7 @@ export default {
     <header class="header">
         <div class="container">
             <section class="logo">
-                BOOL<span>FLIX</span>
+                <a @click="reloadPage" href="">BOOL<span>FLIX</span></a>
             </section>
             <section class="ms_search-bar">
                 <input @keyup.enter="$emit('search')" v-model.trim="store.currentSearch" type="text"
@@ -43,12 +48,17 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    padding-top: 1rem;
     color: white;
     text-transform: uppercase;
 
     .logo {
-
         font-size: 2rem;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
     }
 
     span {

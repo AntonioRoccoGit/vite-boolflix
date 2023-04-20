@@ -23,6 +23,8 @@ export default {
       if (this.store.currentSearch) {
         this.getFilmsFromApi(params);
         this.getSeriesFromApi(params);
+        this.getFilmGeneres(params);
+        this.getSeriesGeneres(params);
 
       } else {
 
@@ -32,7 +34,7 @@ export default {
     },
     getFilmsFromApi(params) {
       axios
-        .get(this.store.apiUrlFilms, {
+        .get(`${this.store.apiUrl}${this.store.apiUrlFilms}`, {
           params
         })
         .then((resp) => {
@@ -41,14 +43,32 @@ export default {
     },
     getSeriesFromApi(params) {
       axios
-        .get(this.store.apiUrlSeries, {
+        .get(`${this.store.apiUrl}${this.store.apiUrlSeries}`, {
           params
         })
         .then((resp) => {
           this.store.mySeriesArray = resp.data.results;
 
         })
-    }
+    },
+    getFilmGeneres(params) {
+      axios
+        .get(`${this.store.apiUrl}${this.store.apiUrlFilmsGeners}`, {
+          params
+        })
+        .then((resp) => {
+          this.store.filmGenersArray = resp.data.genres;
+        })
+    },
+    getSeriesGeneres(params) {
+      axios
+        .get(`${this.store.apiUrl}${this.store.apiUrlSeriesGeners}`, {
+          params
+        })
+        .then((resp) => {
+          this.store.seriesGenersArray = resp.data.genres;
+        })
+    },
   },
 
 }

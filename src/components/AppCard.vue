@@ -1,23 +1,22 @@
 <script>
 import { store } from '../store';
-import LangFlag from "vue-lang-code-flags"
+import LangFlag from "vue-lang-code-flags";
 export default {
     name: "AppCard",
     data() {
         return {
             store,
-            flag: ""
         }
     },
     components: {
-        LangFlag
+        LangFlag,
     },
     props: ["item"],
 
     computed: {
         getFleg() {
-            this.flag = this.item.original_language;
-            if (this.flag === "kn") {
+            const flag = this.item.original_language;
+            if (flag === "kn") {
                 return false
             }
             return flag;
@@ -55,7 +54,11 @@ export default {
                 <LangFlag :iso="getFleg" :squared="false" />
             </li>
             <li v-else><span>Lingua:</span> Kannada</li>
-            <li><span>Voto:</span> {{ setRaiting }}</li>
+            <li>
+                <span>Voto:</span>
+                <i v-for="number in setRaiting" class="fa-solid fa-star"></i>
+                <i v-for="star in (5 - setRaiting)" class="fa-regular fa-star"></i>
+            </li>
             <li v-if="item.overview"><span>Descrizione:</span> {{ item.overview }}</li>
         </ul>
     </div>
@@ -114,6 +117,17 @@ export default {
 
             .flag-icon {
                 margin-left: .4rem;
+            }
+
+            .fa-solid.fa-star {
+                color: yellow;
+                margin-left: .1rem;
+
+            }
+
+            .fa-regular.fa-star {
+                margin-left: .1rem;
+
             }
         }
 
