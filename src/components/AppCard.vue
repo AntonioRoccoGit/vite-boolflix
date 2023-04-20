@@ -11,7 +11,9 @@ export default {
     components: {
         LangFlag,
     },
-    props: ["item"],
+    props: {
+        item: Object,
+    },
 
     computed: {
         getFleg() {
