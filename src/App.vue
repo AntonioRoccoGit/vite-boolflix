@@ -56,7 +56,7 @@ export default {
 
 <template>
   <AppHeader @search="handleSearch" />
-  <div class="container">
+  <div class="container ms_container mt-2">
     <h2 class="row-title" v-if="store.myFilmsArray.length"> FILMS </h2>
     <h2 v-else>Inizia la tua ricerca...</h2>
     <div div class=" row row-cols-2 row-cols-md-4 row-cols-lg-6">

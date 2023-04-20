@@ -19,6 +19,27 @@ img {
 .container {
     max-width: 1000px;
 
+    &.ms_container {
+        height: 80vh;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background: black;
+            border: 3px solid transparent;
+            background-clip: content-box;
+        }
+    }
+
     .row-title {
         margin-top: 2rem;
     }

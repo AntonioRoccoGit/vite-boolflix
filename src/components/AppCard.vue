@@ -57,6 +57,8 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@use "../scss/partials/costantVariables.scss" as *;
+
 .ms_card {
     border: 1px solid rgba(255, 255, 255, 0.322);
     position: relative;
@@ -81,6 +83,22 @@ export default {
         margin-bottom: 0;
         overflow-y: auto;
         font-size: .65rem;
+
+        &::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background: $main_bg_color;
+            border: 4px solid transparent;
+            background-clip: content-box;
+        }
 
         li {
             padding: .4rem 1rem;
