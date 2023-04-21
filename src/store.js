@@ -10,9 +10,9 @@ export const store = reactive({
     imgPath: "https://image.tmdb.org/t/p/w342",
     currentSearch: "",
     filmsGeneres: "",
+    seriesGeneres: "",
     myFilmsArray: [],
     mySeriesArray: [],
     filmGenersArray: [],
-    seriesGenersArray: [],
-    flagGeneres: false
+    seriesGenersArray: []
 });
