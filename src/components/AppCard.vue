@@ -1,11 +1,14 @@
 <script>
 import { store } from '../store';
 import LangFlag from "vue-lang-code-flags";
+import axios from 'axios';
 export default {
     name: "AppCard",
     data() {
         return {
             store,
+            castArray: [],
+            showDetails: false
         }
     },
     components: {
@@ -39,7 +42,52 @@ export default {
         },
         setRaiting() {
             return parseInt(this.item.vote_average / 2);
+        },
+        getCast() {
+            if (this.item.original_title) {
+                return this.getMovieCast;
+            } else {
+                return this.getSeriesCast;
+            }
         }
+    },
+    methods: {
+        getMovieCast() {
+            if (this.castArray.length === 0) {
+                axios
+                    .get(`${this.store.apiUrl}/movie/${this.item.id}/credits`, {
+                        params: {
+                            api_key: this.store.apiKey
+                        }
+                    })
+                    .then(resp => {
+                        for (let i = 0; i < 5; i++) {
+                            this.castArray.push(resp.data.cast[i].original_name);
+                        }
+                    });
+
+            };
+            this.showDetails = !this.showDetails;
+        },
+        getSeriesCast() {
+            if (this.castArray.length === 0) {
+                axios
+                    .get(`${this.store.apiUrl}/tv/${this.item.id}/credits`, {
+                        params: {
+                            api_key: this.store.apiKey
+                        }
+                    })
+                    .then(resp => {
+                        for (let i = 0; i < 5; i++) {
+                            this.castArray.push(resp.data.cast[i].original_name);
+                        }
+                    })
+
+            };
+            this.showDetails = !this.showDetails;
+
+        },
+
     }
 
 }
@@ -63,7 +111,17 @@ export default {
                 <i v-for="star in (5 - setRaiting)" class="fa-regular fa-star"></i>
             </li>
             <li v-if="item.overview"><span>Descrizione:</span> {{ item.overview }}</li>
+            <li>
+                <button @click="getCast">Dettagli</button>
+                <div v-show="showDetails" class="container">
+                    <h2>Attori</h2>
+                    <div class="row row-cols-5 flex-column gap-2">
+                        <div v-for="name in castArray" class="col">{{ name }}</div>
+                    </div>
+                </div>
+            </li>
         </ul>
+
     </div>
 </template>
 
