@@ -28,7 +28,6 @@ export default {
                 <input @keyup.enter="$emit('search')" v-model.trim="store.currentSearch" type="text"
                     placeholder="Ricerca per nome...">
             </section>
-
         </div>
     </header>
 </template>

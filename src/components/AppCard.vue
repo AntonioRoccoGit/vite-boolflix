@@ -49,9 +49,27 @@ export default {
             } else {
                 return this.getSeriesCast;
             }
-        }
+        },
     },
     methods: {
+        getGeneres(genre) {
+            if (this.item.original_title) {
+                for (let i = 0; i < this.store.filmGenersArray.length; i++) {
+                    let curr = this.store.filmGenersArray[i];
+                    if (genre === curr.id) {
+                        return curr.name
+                    }
+                }
+            } else {
+                for (let i = 0; i < this.store.seriesGenersArray.length; i++) {
+                    let curr = this.store.seriesGenersArray[i];
+                    if (genre === curr.id) {
+                        return curr.name
+                    }
+                }
+            }
+
+        },
         getMovieCast() {
             if (this.castArray.length === 0) {
                 axios
@@ -114,9 +132,13 @@ export default {
             <li>
                 <button @click="getCast">Dettagli</button>
                 <div v-show="showDetails" class="container">
-                    <h2>Attori</h2>
+                    <h2 class="mt-2">Attori:</h2>
                     <div class="row row-cols-5 flex-column gap-2">
                         <div v-for="name in castArray" class="col">{{ name }}</div>
+                    </div>
+                    <h2 class="mt-2">Categorie:</h2>
+                    <div class="row row-cols-5 flex-column gap-2">
+                        <div v-for="id in item.genre_ids" class="col">{{ getGeneres(id) }}</div>
                     </div>
                 </div>
             </li>
@@ -171,6 +193,10 @@ export default {
 
         li {
             padding: .4rem 1rem;
+
+            h2 {
+                font-size: .9rem;
+            }
 
             span {
                 font-weight: 800;
